@@ -1,1 +1,82 @@
+public class PhoneNumber
+{
+    public string AreaCode { get; private set; }
+    public string Prefix { get; private set; }
+    public string LineNumber { get; private set; }
 
+    public PhoneNumber(string areaCode, string prefix, string lineNumber)
+    {
+        if (string.IsNullOrWhiteSpace(areaCode) || areaCode.Length != 3)
+        {
+            throw new ArgumentException("Invalid area code", nameof(areaCode));
+        }
+
+        if (string.IsNullOrWhiteSpace(prefix) || prefix.Length < 3 || prefix.Length > 4)
+        {
+            throw new ArgumentException("Invalid prefix", nameof(prefix));
+        }
+
+        if (string.IsNullOrWhiteSpace(lineNumber) || lineNumber.Length != 4)
+        {
+            throw new ArgumentException("Invalid line number", nameof(lineNumber));
+        }
+
+        AreaCode = areaCode;
+        Prefix = prefix;
+        LineNumber = lineNumber;
+    }
+
+    public override string ToString()
+    {
+        return $"({AreaCode}) {Prefix}-{LineNumber}";
+    }
+}
+
+public class PhoneNumberValidator
+{
+    private readonly Regex _phoneNumberRegex;
+
+    public PhoneNumberValidator()
+    {
+        _phoneNumberRegex = new Regex(@"^\(\d{3}\)\s\d{3}-\d{4}$");
+    }
+
+    public bool IsValid(string phoneNumber)
+    {
+        return _phoneNumberRegex.IsMatch(phoneNumber);
+    }
+
+    public PhoneNumber Parse(string phoneNumber)
+    {
+        if (!IsValid(phoneNumber))
+        {
+            throw new ArgumentException("Invalid phone number", nameof(phoneNumber));
+        }
+
+        var match = _phoneNumberRegex.Match(phoneNumber);
+        var areaCode = match.Groups[1].Value;
+        var prefix = match.Groups[3].Value;
+        var lineNumber = match.Groups[5].Value;
+
+        return new PhoneNumber(areaCode, prefix, lineNumber);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var phoneNumber = "555-123-4567";
+        var phoneNumberValidator = new PhoneNumberValidator();
+
+        if (phoneNumberValidator.IsValid(phoneNumber))
+        {
+            var parsedPhoneNumber = phoneNumberValidator.Parse(phoneNumber);
+            Console.WriteLine(parsedPhoneNumber);
+        }
+        else
+        {
+            Console.WriteLine("Invalid phone number");
+        }
+    }
+}

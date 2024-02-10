@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Source Code</title>
-<style>
-  body {
-    background-color: black;
-    margin: 0;
-    padding: 20px; /* Add padding for better readability */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; /* Adding white color for better readability */
-    font-family: Arial, sans-serif; /* Adding a font family for better readability */
-    font-size: 18px; /* Larger font size */
-    line-height: 1.6; /* Improved line height for readability */
-  }
-  pre {
-    white-space: pre-wrap; /* Preserve white spaces */
-    font-size: 16px; /* Adjusting code font size */
-    background-color: #333; /* Adding a dark background for code block */
-    padding: 20px; /* Adding padding for code block */
-    border-radius: 8px; /* Rounded corners for code block */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-  }
-</style>
-</head>
-<body>
-  <div style="max-width: 800px;">
-    <h1>Prelim - Activity 2</h1>
-    <pre><code>
 import re  # Importing the regular expression module
 
 x = open("regex_sum_42.txt")  # Opening the file named "regex_sum_42.txt"
@@ -66,7 +33,4 @@ print("The sum of all numbers is", c)
 print("The highest number is",max(num_list))
 print("The total vowel count is", g)
 print("Python word count is", j)
-    </code></pre>
-  </div>
-</body>
-</html>
+
